@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <ncurses.h>
+#include <time.h>
 
 typedef struct Position {
     int x;
@@ -10,6 +11,7 @@ typedef struct Room {
     Position position;
     int width;
     int height;
+    Position doors[2];
 } Room;
 
 typedef struct Character {
@@ -62,6 +64,13 @@ Room * createRoom(int x, int y, int width, int height){
     newRoom->width = width;
     newRoom->height = height;
 
+    srand(time(NULL));
+    newRoom->doors[0].x = rand() % width + x;
+    newRoom->doors[0].y = y;
+
+    newRoom->doors[1].y = rand() % height + y;
+    newRoom->doors[1].x = x;
+
     return newRoom;
 }
 
@@ -81,6 +90,8 @@ int drawRoom(Room * room){
             mvprintw(j, i, ".");
             }
         }
+    mvprintw(room->doors[0].y, room->doors[0].x, "!");
+    mvprintw(room->doors[1].y, room->doors[1].x, "!");
 
     return 0;
 }
