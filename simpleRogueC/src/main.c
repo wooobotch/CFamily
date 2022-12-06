@@ -1,34 +1,4 @@
-#include <stdlib.h>
-#include <ncurses.h>
-#include <time.h>
-
-typedef struct Position {
-    int x;
-    int y;
-} Position;
-
-typedef struct Room {
-    Position position;
-    int width;
-    int height;
-    Position doors[2];
-} Room;
-
-typedef struct Character {
-    Position position;
-    int points;
-} Character;
-
-
-int screenSetUp();
-int background();
-int checkPosition(int newX, int newY, Character * user);
-Character * setUpPlayer();
-int content();
-int inputHandler(char, Character *);
-int movePlayer(int, int, Character *);
-Room * createRoom (int, int, int, int);
-int drawRoom (Room *);
+#include "rogue.h"
 
 int main() {
 
@@ -65,10 +35,10 @@ Room * createRoom(int x, int y, int width, int height){
     newRoom->height = height;
 
     srand(time(NULL));
-    newRoom->doors[0].x = rand() % width + x;
+    newRoom->doors[0].x = rand() % (width  - 1) + x + 1;
     newRoom->doors[0].y = y;
 
-    newRoom->doors[1].y = rand() % height + y;
+    newRoom->doors[1].y = rand() % (height - 1) + y + 1;
     newRoom->doors[1].x = x;
 
     return newRoom;
@@ -100,6 +70,7 @@ int background() {
     Room * lvl;
     lvl = createRoom(5, 5, 60, 25);
     drawRoom(lvl);
+    refresh();
 
 }
 
@@ -110,6 +81,9 @@ Character * setUpPlayer (){
     newPlayer->position.x = 20;
     newPlayer->position.y = 20;
     newPlayer->points = 0;
+
+    mvprintw(newPlayer->position.y, newPlayer->position.x, "@");
+    move(newPlayer->position.y, newPlayer->position.x);
 
     return newPlayer;
 }
