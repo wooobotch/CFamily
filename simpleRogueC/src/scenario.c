@@ -18,10 +18,10 @@ Room * createRoom(int x, int y, int width, int height){
     newRoom->height = height;
 
     srand(time(NULL));
-    newRoom->doors[0].x = rand() % (width  - 1) + x + 1;
+    newRoom->doors[0].x = rand() % (width  - 2) + x + 1;
     newRoom->doors[0].y = y;
 
-    newRoom->doors[1].y = rand() % (height - 1) + y + 1;
+    newRoom->doors[1].y = rand() % (height - 2) + y + 1;
     newRoom->doors[1].x = x;
 
     return newRoom;
@@ -49,10 +49,47 @@ int drawRoom(Room * room){
     return 0;
 }
 
-int background() {
-    Room * lvl;
-    lvl = createRoom(5, 5, 60, 25);
-    drawRoom(lvl);
+int background(int screenWidth, int screenHeight, int spaces) {
+    Room ** lvl;
+    lvl = malloc(sizeof(Room)*3);
+    int topCornerX;
+    int topCornerY;
+    int howTall;
+    int howWide;
+
+    srand(time(NULL));
+//    topCornerX = rand() % (screenWidth / 4);
+//    topCornerY = rand() % (screenHeight / 4);
+//    howWide = ( rand() % topCornerX ) + 3;
+//    howTall = ( rand() % topCornerY ) + 5;
+    topCornerX = 12;
+    topCornerY = 10;
+    howWide = 25;
+    howTall = 15;
+//    lvl = createRoom(5, 5, 60, 25);
+    for (int i = 0; i < spaces; i++){
+        lvl[i] = createRoom(topCornerX, topCornerY, howWide, howTall);
+        drawRoom(lvl[i]);
+    }
     refresh();
 
+    return 0;
+}
+
+char ** getLevelBG (int w, int h)
+{
+    int i;
+    int j;
+    char ** positions;
+    positions = malloc(sizeof(char *) * h);
+
+    for (j = 0; j < h; j++)
+    {
+        positions[j] = malloc(sizeof(char) * w);
+        for(i = 0; i < w; i++)
+        {
+            positions[j][i] = mvinch(j, i);
+        }
+    }
+    return positions;
 }

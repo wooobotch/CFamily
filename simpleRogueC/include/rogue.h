@@ -24,12 +24,15 @@ typedef struct Character {
 
 
 int screenSetUp();
-int background();
-int checkPosition(int newX, int newY, Character * user);
+Position * inputHandler(char, Character *);
+
+int checkPosition(Position *, Character *, char **);
 Character * setUpPlayer();
+int movePlayer(Position *, Character *, char **);
+
 int content();
-int inputHandler(char, Character *);
-int movePlayer(int, int, Character *);
+char ** getLevelBG (int, int);
+int background(int, int, int);
 Room * createRoom (int, int, int, int);
 int drawRoom (Room *);
 
