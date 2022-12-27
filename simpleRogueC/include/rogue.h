@@ -32,7 +32,7 @@ int movePlayer(Position *, Character *, char **);
 
 int content();
 char ** getLevelBG (int, int);
-int background(int, int, int);
+int background();
 Room * createRoom (int, int, int, int);
 int drawRoom (Room *);
 

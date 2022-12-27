@@ -49,25 +49,19 @@ int drawRoom(Room * room){
     return 0;
 }
 
-int background(int screenWidth, int screenHeight, int spaces) {
+int background() {
+    int spaces;
+    spaces = 3;
+    int topCornerX, topCornerY, howTall, howWide;
     Room ** lvl;
-    lvl = malloc(sizeof(Room)*3);
-    int topCornerX;
-    int topCornerY;
-    int howTall;
-    int howWide;
+    lvl = malloc(sizeof(Room)*spaces);
 
     srand(time(NULL));
-//    topCornerX = rand() % (screenWidth / 4);
-//    topCornerY = rand() % (screenHeight / 4);
-//    howWide = ( rand() % topCornerX ) + 3;
-//    howTall = ( rand() % topCornerY ) + 5;
-    topCornerX = 12;
-    topCornerY = 10;
-    howWide = 25;
-    howTall = 15;
-//    lvl = createRoom(5, 5, 60, 25);
     for (int i = 0; i < spaces; i++){
+        topCornerX = (i * 20) + (rand() % 5) + 8;
+        topCornerY = i * ( rand() % 6) + (rand() % 6);
+        howWide = (rand() % 10) + 7;
+        howTall = (rand() % 3) + 7;
         lvl[i] = createRoom(topCornerX, topCornerY, howWide, howTall);
         drawRoom(lvl[i]);
     }

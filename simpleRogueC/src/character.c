@@ -20,6 +20,7 @@ int checkPosition(Position * coordinate, Character * user, char ** level){
         case '.':
         case '!':
         case ':':
+        case '#':
             movePlayer(coordinate, user, level);
             break;
         default:

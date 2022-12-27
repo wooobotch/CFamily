@@ -1,20 +1,16 @@
 #include "rogue.h"
 
 int main() {
-
-    int canvasWidth, canvasHeight, caves;
+    int canvasHeight, canvasWidth;
     Position * newPosition;
     char ** places;
     Character * player;
     char ch;
-
     canvasWidth = 60;
-    canvasHeight = 30;
-    caves = 1;
-
+    canvasHeight = 40;
 
     screenSetUp();
-    background(canvasWidth, canvasHeight, caves);
+    background();
     places = getLevelBG(canvasWidth, canvasHeight);
     player = setUpPlayer();
 
